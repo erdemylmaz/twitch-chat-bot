@@ -35,6 +35,8 @@ const colors = [
 
 let messages = [];
 let giveawayParticipations = [];
+let currentGiveawayParticipations = [];
+let counter = 0;
 
 sendMessage = (e) => {
   e.preventDefault();
@@ -56,18 +58,47 @@ sendMessage = (e) => {
   messagesList.appendChild(li);
 
   if (usersMessage.indexOf($keyWord) != -1) {
-    giveawayParticipations.push({
-      name: $name.value,
-      message: message.value,
+    if (giveawayParticipations.length == 0) {
+      giveawayParticipations.push({
+        name: $name.value,
+        message: message.value,
+      });
+
+      let li2 = document.createElement("li");
+
+      giveawayParticipations.forEach((user) => {
+        li2.innerHTML = `<h4>${user.name}</h4>: <h4>${user.message}</h4>`;
+      });
+
+      participationsList.appendChild(li2);
+    } else if (giveawayParticipations.length > 0) {
+      for (let x = 0; x < giveawayParticipations.length; x++) {
+        if (giveawayParticipations[x].name == $name.value) {
+        } else {
+          giveawayParticipations.pop();
+
+          giveawayParticipations.push({
+            name: $name.value,
+            message: message.value,
+          });
+
+          let li2 = document.createElement("li");
+
+          giveawayParticipations.forEach((user) => {
+            li2.innerHTML = `<h4>${user.name}</h4>: <h4>${user.message}</h4>`;
+          });
+
+          participationsList.appendChild(li2);
+        }
+      }
+    }
+
+    let lis = participationsList.querySelectorAll("li");
+    currentGiveawayParticipations.push({
+      name: lis[counter].firstChild.textContent,
+      message: lis[counter].lastChild.textContent,
     });
-
-    let li2 = document.createElement("li");
-
-    giveawayParticipations.forEach((user) => {
-      li2.innerHTML = `${user.name}: ${user.message}`;
-    });
-
-    participationsList.appendChild(li2);
+    counter++;
   }
 };
 
@@ -79,8 +110,10 @@ setKeyword = (e) => {
 };
 
 startGiveaway = () => {
-  let randomWinner = Math.floor(Math.random() * giveawayParticipations.length);
-  winner = giveawayParticipations[randomWinner].name;
+  let randomWinner = Math.floor(
+    Math.random() * currentGiveawayParticipations.length
+  );
+  winner = currentGiveawayParticipations[randomWinner].name;
 
   giveaway.innerHTML = "5";
   setTimeout(() => {
@@ -105,3 +138,4 @@ botForm.addEventListener("submit", setKeyword);
 start.addEventListener("click", startGiveaway);
 
 messageForm.addEventListener("submit", sendMessage);
+
