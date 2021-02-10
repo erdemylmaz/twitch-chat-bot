@@ -101,48 +101,50 @@ sendMessage = (e) => {
 
     }
 
-    if (isVoteStart) {
+    for (let x = 0; x < options.length; x++) {
 
-        var lastVLength = votedUsers.length;
+        if (isVoteStart && message.value == options[x].name) {
 
-        for (let x = 0; x < votedUsers.length; x++) {
-            if (votedUsers[x].name == $name.value) {
-                votedUsers.splice(x, 1);
+            var lastVLength = votedUsers.length;
+
+            for (let x = 0; x < votedUsers.length; x++) {
+                if (votedUsers[x].name == $name.value) {
+                    votedUsers.splice(x, 1);
+                }
+            };
+
+            votedUsers.push({
+                name: $name.value,
+            });
+
+            if (votedUsers.length != lastVLength) {
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].name.toLowerCase() == message.value.toLowerCase()) {
+                        options[i].votedUsersCount++;
+                        console.log(options[i].name, options[i].votedUsersCount)
+                    }
+
+                }
             }
-        };
 
-        votedUsers.push({
-            name: $name.value,
-        });
 
-        if (votedUsers.length != lastVLength) {
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].name.toLowerCase() == message.value.toLowerCase()) {
-                    options[i].votedUsersCount++;
-                    console.log(options[i].name, options[i].votedUsersCount)
+            // add percentages to options
+            var lis = optionsList.querySelectorAll('li');
+
+            for (let x = 0; x < options.length; x++) {
+
+                if (options[x].votedUsersCount > 0) {
+                    options[x].percentage = Math.floor(100 - ((votedUsers.length - options[x].votedUsersCount) * 100 / votedUsers.length));
+                } else if (votedUsers.length == 0) {
+                    options[x].percentage = 0
+                } else if (options[x].votedUsersCount == 0) {
+                    options[x].percentage = 0;
                 }
 
+                lis[x].innerHTML = `<h3>${options[x].name}: ${options[x].percentage}%</h3>`;
             }
-        }
-
-
-        // add percentages to options
-        let lis = optionsList.querySelectorAll('li');
-
-        for (let x = 0; x < options.length; x++) {
-
-            if (options[x].votedUsersCount > 0) {
-                options[x].percentage = Math.floor(100 - ((votedUsers.length - options[x].votedUsersCount) * 100 / votedUsers.length));
-            } else if (votedUsers.length == 0) {
-                options[x].percentage = 0
-            } else if (options[x].votedUsersCount == 0) {
-                options[x].percentage = 0;
-            }
-
-            lis[x].innerHTML = `<h3>${options[x].name}: ${options[x].percentage}%</h3>`;
         }
     }
-
 };
 
 setKeyword = (e) => {
@@ -222,6 +224,22 @@ var isVoteStart = false;
 
 addOption = (e) => {
     e.preventDefault();
+    // if option same as other delete option
+    if (options.length > 0) {
+        for (let x = 0; x < options.length; x++) {
+            if (options[x].name == `#${optionInput.value}`) {
+
+                let optLis = document.querySelectorAll('.optLi');
+
+                optLis.forEach((opt) => {
+                    if (opt.firstChild.textContent == `#${optionInput.value}`) {
+                        optionsList.removeChild(opt);
+                        options.splice(x, 1);
+                    }
+                })
+            }
+        }
+    }
 
     if (options.length < 5 && optionInput.value != "") {
         var lastOptionsLength = options.length;
@@ -240,16 +258,18 @@ addOption = (e) => {
 
         if (options.length != lastOptionsLength) {
             var optionLi = document.createElement('li');
+            optionLi.className = "optLi";
 
             optionLi.innerHTML = `<h3>#${optionInput.value}</h3> <button class="remove">X</button>`;
 
             optionsList.appendChild(optionLi);
         }
 
-        optionInput.value = '';
     } else {
         alert('please check all things are true');
     }
+
+
 
     // disabled start button if not enough option
     if (options.length < 2) {
@@ -257,6 +277,8 @@ addOption = (e) => {
     } else {
         startVoteBTN.disabled = false;
     }
+
+    optionInput.value = '';
 }
 
 removeOption = (e) => {
