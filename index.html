@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Giveaway Bot</title>
+</head>
+
+<body>
+    <div class="app">
+        <div class="selector">
+            <form class="selectorForm">
+                <select class="botSelector">
+                <option value="giveaway" class="select-bot">Giveaway</option>
+                <option value="vote" class="select-bot">Start Vote</option>
+              </select>
+                <input type="submit" value="Open!">
+            </form>
+        </div>
+        <button class="restart" disabled>Restart!</button>
+        <div class="vote">
+            <form class="addOption">
+                <input type="text" class="optionInput" maxlength="16" placeholder="max 5 option min 2 option">
+                <input type="submit" value="Add!">
+            </form>
+            <ol class="optionsList">
+            </ol>
+
+            <button class="startVote" disabled>Start Vote</button>
+
+            <h2 class="result"></h2>
+
+        </div>
+        <div class="giveaway-bot">
+            <form class="keyword">
+                <input type="text" class="keywordInput" required placeholder="keyword" />
+                <input type="submit" class="submit" value="Set keyword" />
+            </form>
+            <h3>Keyword: <span class="keywordArea"></span></h3>
+            <h2>participations</h2>
+            <ol class="participations"></ol>
+            <button class="start">Start Giveaway</button>
+            <h1 class="giveaway"></h1>
+        </div>
+
+        <div class="chat">
+            <div class="messages-div">
+                <ul class="messages"></ul>
+            </div>
+            <div class="form">
+                <hr / style="background-color: black; border: none; width: 100%;
+          height: 1px;">
+                <form class="messageForm">
+                    <input type="text" required id="name" placeholder="Name" />
+                    <br />
+                    <input type="text" required id="message" />
+                    <input type="submit" value="Send!" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="./bot.js"></script>
+
+</html>

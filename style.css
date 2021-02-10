@@ -1,0 +1,154 @@
+body {
+    min-height: 90vh;
+    display: inline;
+    background-color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.selector {
+    display: block;
+    float: left;
+}
+
+.chat {
+    width: 500px;
+    height: 90vh;
+    float: right;
+    margin-right: 32px;
+    background-color: purple;
+    border-radius: 1.5rem;
+}
+
+li * {
+    display: inline;
+}
+
+.vote {
+    /* display: none; */
+}
+
+.giveaway-bot {
+    float: left;
+    margin: 32px;
+    display: none;
+}
+
+.giveaway-bot form input {
+    color: black;
+}
+
+.chat form {
+    position: absolute;
+}
+
+.messages-div {
+    height: 75vh;
+    overflow-y: scroll;
+}
+
+form {
+    margin-top: 6px;
+    margin-left: 64px;
+}
+
+input::placeholder {
+    color: white;
+}
+
+input[type="text"] {
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    margin-bottom: 12px;
+    padding: 5px;
+    color: white;
+    line-height: 2rem;
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+input[type="submit"] {
+    border-radius: 1px;
+    width: 120px;
+    margin-left: 12px;
+    line-height: 2rem;
+    background-color: transparent;
+    border: 1px solid black;
+    transition: 250ms;
+}
+
+input[type="submit"]:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid purple;
+    transition: 250ms;
+    cursor: pointer;
+}
+
+input[type="submit"]:focus {
+    outline: none;
+}
+
+li {
+    margin-top: 12px;
+    font-size: 16px;
+}
+
+.messages li {
+    list-style: none;
+}
+
+
+/* vote */
+
+.addOption input::placeholder {
+    color: black;
+    font-size: 11px;
+}
+
+.addOption input {
+    color: black;
+}
+
+.optionInput {}
+
+.optionsList li {
+    width: 250px;
+}
+
+.optinsList li * {
+    line-height: 1.5rem;
+}
+
+.remove {
+    float: right;
+    border: none;
+    background-color: red;
+    margin-right: 0px;
+    border-radius: 5px;
+    line-height: 1.5rem;
+    transition: 125ms;
+}
+
+.remove:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.685);
+    transition: 125ms;
+}
+
+.remove:focus {
+    box-shadow: 2px 2px 5px gray, -2px -2px 5px gray;
+}
+
+.restart {
+    display: none;
+}
+
+.vote {
+    float: left;
+    margin-left: 32px;
+}
