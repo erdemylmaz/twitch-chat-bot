@@ -48,6 +48,29 @@ let messages = [];
 let giveawayParticipations = [];
 let counter = 0;
 
+const chatCodes = [
+  {
+    name: 'discord',
+    code: '!dc',
+    text: 'discord.gg/erdemdiscord',
+  },
+  {
+    name: 'instagram',
+    code: '!ig',
+    text: 'instagram.com/erdeminstagram',
+  },
+  {
+    name: 'twitter',
+    code: '!twitter',
+    text: 'twitter.com/erdemtwitter',
+  },
+  {
+    name: 'codes',
+    code: '!codes',
+    text: '!dc, !ig, !twitter kodlarini kullanabilirsiniz',
+  }
+]
+
 let deneme = [];
 
 let hex = "#";
@@ -75,6 +98,16 @@ sendMessage = (e) => {
     hex = "#";
 
     messagesList.appendChild(li);
+
+    // if user text code
+    for(let x = 0; x < chatCodes.length; x++) {
+      if (usersMessage == chatCodes[x].code) {
+          let botLi = document.createElement('li');
+          botLi.innerHTML = `<h3 style="color: white;">${chatCodes[x].name}bot:</h3> <h3 style="color: black; display: inline;">${chatCodes[x].text}</h3>`
+          messagesList.appendChild(botLi);
+      }
+    }
+
 
     if (usersMessage.indexOf($keyWord) != -1) {
 
@@ -210,7 +243,7 @@ selected = (e) => {
 selector.addEventListener('submit', selected);
 
 
-// vote bot 
+// vote bot
 
 const vote = document.querySelector('.vote');
 const optionInput = document.querySelector(".optionInput");
